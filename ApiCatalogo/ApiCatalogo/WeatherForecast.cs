@@ -1,4 +1,4 @@
-namespace ProjetoApi1
+namespace ApiCatalogo
 {
     public class WeatherForecast
     {
