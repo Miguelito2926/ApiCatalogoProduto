@@ -12,10 +12,10 @@ namespace ApiCatalogo.Controllers
     {
         private readonly ApiCatalogoContext _context;
 
-        public ProdutosController(ApiCatalogoContext context)
+        public ProdutosController(ApiCatalogoContext context) // injeção de dependencia
         {
             _context = context;
-            // Inicializa o controleador com o contexto do banco de dados.
+            // Inicializa o controlador com o contexto do banco de dados.
         }
 
         [HttpGet]
