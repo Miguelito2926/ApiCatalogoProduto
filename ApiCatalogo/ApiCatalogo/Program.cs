@@ -11,6 +11,7 @@ builder.Services.AddControllers(); // Adiciona o serviço de controle do MVC.
 
 builder.Services.AddEndpointsApiExplorer(); // Adiciona suporte para a exploração de endpoints (Swagger).
 builder.Services.AddSwaggerGen(); // Configura o Swagger para geração de documentação da API.
+builder.Services.AddControllers();
 
 string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 // Obtém a string de conexão do arquivo de configuração "appsettings.json" com o nome "DefaultConnection".
