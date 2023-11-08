@@ -39,6 +39,8 @@ namespace ApiCatalogo.Controllers
         [HttpGet("{id:int}", Name = "ObterProduto")]
         public ActionResult<Produto> Get(int id)
         {
+            // Método que responde a solicitações HTTP GET para obter um produto específico por ID.
+
             var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
             if (produto is null)
             {
@@ -50,6 +52,8 @@ namespace ApiCatalogo.Controllers
         [HttpPost]
         public ActionResult Post(Produto produto)
         {
+            // Método que responde a solicitações HTTP POST para criar um novo produto.
+
             if (produto is null)
             {
                 return BadRequest();
@@ -57,13 +61,14 @@ namespace ApiCatalogo.Controllers
             _context.Produtos.Add(produto);
             _context.SaveChanges();
             return new CreatedAtRouteResult("ObterProduto",
-            new { id = produto.ProdutoId }, produto);
-
+                new { id = produto.ProdutoId }, produto);
         }
 
         [HttpPut("{id:int}")]
         public ActionResult Put(int id, Produto produto)
         {
+            // Método que responde a solicitações HTTP PUT para atualizar um produto existente.
+
             if (id != produto.ProdutoId)
             {
                 return BadRequest("Campos obrigatórios de entrada não enviados ou erros de validação dos campos de entrada.");
@@ -74,17 +79,19 @@ namespace ApiCatalogo.Controllers
 
             return Ok(produto);
         }
+
         [HttpDelete("{id:int}")]
         public ActionResult Delete(int id)
         {
+            // Método que responde a solicitações HTTP DELETE para excluir um produto por ID.
+
             var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
-            // produto = _context.Produtos.Find(id);
-            if(produto is null)
+            if (produto is null)
             {
                 return NotFound("Recurso não encontrado.");
             }
             _context.Produtos.Remove(produto);
-            _context.SaveChanges(); 
+            _context.SaveChanges();
             return Ok(produto);
         }
     }
