@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace ApiCatalogo.Models;
 [Table("Produtos")]
@@ -34,10 +35,12 @@ public class Produto
    
     public DateTime DataCadastro { get; set; }
     // Propriedade que representa a data de cadastro do produto.
-   
+
+ 
     public int CategoriaId { get; set; }
     // Propriedade que representa o ID da categoria do produto.
-    
+
+    [JsonIgnore] // Ignora a propriedade no Json
     public Categoria? Categoria { get; set; }
     // Propriedade de navegação que representa a categoria associada ao produto.
 }

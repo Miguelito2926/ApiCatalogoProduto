@@ -22,9 +22,10 @@ namespace ApiCatalogo.Controllers
         public ActionResult<IEnumerable<Produto>> Get()
         {
             // Método que responde a solicitações HTTP GET para listar produtos.
-
-            var produtos = _context.Produtos.ToList();
+            var produtos = _context.Produtos.Take(10).AsNoTracking().ToList();
             // Obtém todos os produtos do banco de dados.
+            //AsNotTracking método para melhorar o desempenho das consultas,
+            //evita armazenar no cache, usarpara consulta somente leituras sem necessidade de alterar  dados
 
             if (produtos is null)
             {
@@ -35,6 +36,7 @@ namespace ApiCatalogo.Controllers
             return produtos;
             // Retorna a lista de produtos como resultado da solicitação.
         }
+
 
         [HttpGet("{id:int}", Name = "ObterProduto")]
         public ActionResult<Produto> Get(int id)
