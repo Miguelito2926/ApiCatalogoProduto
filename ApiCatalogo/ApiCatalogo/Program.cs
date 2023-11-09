@@ -1,27 +1,32 @@
 using ApiCatalogo.Context; // Importa o namespace que contém o contexto de dados da aplicação.
 using Microsoft.EntityFrameworkCore; // Importa o namespace do Entity Framework Core.
+using System.Text.Json.Serialization;
 
+
+// Cria um construtor de aplicativo web usando a classe WebApplication, 
+// passando os argumentos fornecidos à aplicação.
 var builder = WebApplication.CreateBuilder(args);
 
-// Cria uma instância do aplicativo web usando o ASP.NET Core.
+// Adiciona o serviço de controle do MVC.
+//Defini como o JsonSerializer lida com referências sobre serialização e desserialização
+//Ignora o objeto quando um ciclo de referência é detectado durante a serialização
+builder.Services.AddControllers().AddJsonOptions(options => 
+{ options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles; });
 
-// Adiciona serviços ao contêiner de injeção de dependência.
-builder.Services.AddControllers(); // Adiciona o serviço de controle do MVC.
-// Saiba mais sobre a configuração do Swagger/OpenAPI em https://aka.ms/aspnetcore/swashbuckle
+// Adiciona suporte para a exploração de endpoints (Swagger).
+builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddEndpointsApiExplorer(); // Adiciona suporte para a exploração de endpoints (Swagger).
-builder.Services.AddSwaggerGen(); // Configura o Swagger para geração de documentação da API.
-builder.Services.AddControllers();
+// Configura o Swagger para geração de documentação da API.
+builder.Services.AddSwaggerGen();
 
-string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 // Obtém a string de conexão do arquivo de configuração "appsettings.json" com o nome "DefaultConnection".
+string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext<ApiCatalogoContext>(options => options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));
 // Configura o Entity Framework Core para usar o MySQL com a string de conexão "mySqlConnection" e a versão do servidor automaticamente detectada.
-
-var app = builder.Build();
+builder.Services.AddDbContext<ApiCatalogoContext>(options => options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));
 
 // Configura o pipeline de solicitação HTTP.
+var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {

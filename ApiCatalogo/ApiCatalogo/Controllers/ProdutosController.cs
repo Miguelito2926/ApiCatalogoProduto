@@ -17,7 +17,7 @@ namespace ApiCatalogo.Controllers
             _context = context;
             // Inicializa o controlador com o contexto do banco de dados.
         }
-
+      
         [HttpGet]
         public ActionResult<IEnumerable<Produto>> Get()
         {
