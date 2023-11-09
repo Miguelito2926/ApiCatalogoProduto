@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel; // Importa o namespace para a coleção ObservableCollection.
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 [Table("Categorias")]
 public class Categoria
@@ -20,7 +21,7 @@ public class Categoria
     [MaxLength(300)]
     public string? ImagemUrl { get; set; }
     // Propriedade que representa a URL da imagem da categoria.
-
+    
     public ICollection<Produto>? Produtos { get; set; } = new Collection<Produto>();
     // Propriedade de navegação que representa uma coleção de produtos associados a esta categoria.
     // Inicializa a coleção de produtos como uma nova instância de Collection<Produto> por padrão.
