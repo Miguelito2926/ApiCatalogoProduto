@@ -43,8 +43,8 @@ namespace ApiCatalogo.Controllers
             }
         }
 
-
-        [HttpGet("{id:int}", Name = "ObterProduto")]
+        // Endpoint para obter uma produto por ID usando restrição de rota definindo que espera um ID do tipo inteiro maior que 0
+        [HttpGet("{id:int:min(1)}", Name = "ObterProduto")]
         public ActionResult<Produto> Get(int id)
         {
             try
